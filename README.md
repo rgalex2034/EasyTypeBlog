@@ -14,3 +14,10 @@ To build and run this application as a docker container, run:
 docker-compose up
 ```
 The first script will build the container image, then install the dependencies. Finally, `docker-compose up` will start the container.
+
+## Run
+Once installed, a docker container will be available for use.
+To start it, just write:
+```
+docker start easyblog_web_1
+```
