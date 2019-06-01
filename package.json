@@ -1,0 +1,27 @@
+{
+  "name": "easy-type-blog",
+  "version": "1.0.0",
+  "description": "A simple blog platform without any complexity.",
+  "main": "build/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "make build",
+    "start": "node build/app.js",
+    "clean": "make clean"
+  },
+  "keywords": [
+    "blog",
+    "typescript",
+    "node"
+  ],
+  "author": "Alex Ruiz",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "@types/node": "^12.0.4",
+    "express": "^4.17.1",
+    "handlebars": "^4.1.2"
+  },
+  "devDependencies": {
+    "typescript": "^3.4.5"
+  }
+}
