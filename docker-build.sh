@@ -1,5 +1,5 @@
-docker-compose -p easyblog build
-docker run --rm --volume=$(pwd):/app easyblog_web npm install
-docker run --rm --volume=$(pwd):/app easyblog_web npm i @types/node
-docker run --rm --volume=$(pwd):/app easyblog_web npm run build
-docker-compose -p easyblog up --no-start
+docker-compose build
+docker-compose run --rm web npm install
+docker-compose run --rm web npm i @types/node
+docker-compose run --rm web npm run build
+docker-compose up --no-start

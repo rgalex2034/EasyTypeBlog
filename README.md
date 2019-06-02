@@ -8,16 +8,14 @@ and handlebars for the template system.
 For now, I've not decided which kind of technology use for persistence, but will be something small as SQLite or MongoDB.
 
 ## Installation
-To build and run this application as a docker container, run:
+To build the application on a docker container, run:
 ```sh
 ./docker-build.sh
-docker-compose up
 ```
-The first script will build the container image, then install the dependencies. Finally, `docker-compose up` will start the container.
+This will create a docker container. You will see the list of existing containser with `docker ps -a`.
 
 ## Run
-Once installed, a docker container will be available for use.
-To start it, just write:
+Once installed, you can start the container with this command:
 ```
-docker start easyblog_web_1
+docker-compose start
 ```
