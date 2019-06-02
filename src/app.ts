@@ -37,6 +37,7 @@ app.get("/", (req: Request, res: Response) => {
 //As a last resource, send 404
 app.use((req: Request, res: Response, next) =>{
     let html: string = parse_template("404.html", {}).unwrap_or("404 - Not found");
+    res.status(404);
     res.send(html);
     next();
 });
