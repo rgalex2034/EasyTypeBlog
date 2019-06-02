@@ -11,12 +11,16 @@ function parse_template(filename: string, context: object): Result<string, strin
     return new Ok(handlebars.templates[filename](context || this));
 }
 handlebars.registerHelper("parse", (filename, context) => {
+    let def: string = "";
+
     let html_result: Result<string, string> = parse_template.call(this, filename, context);
     if(html_result.is_err()){
         let err: string = html_result.handle();
         console.error(err);
+        def = parse_template.call(this, "404.html", context).unwrap_or("404 - Not found");
     }
-    return html_result.unwrap_or("");
+
+    return html_result.unwrap_or(def);
 });
 
 let app = express();
@@ -24,9 +28,17 @@ let app = express();
 //Static paths content
 app.use("/styles", express.static("styles"));
 
+//Resources
 app.get("/", (req: Request, res: Response) => {
     let html: string = parse_template("index.html", {appname: "EasyTypeBlog"}).expect("Unable to load index.");
     res.send(html);
+});
+
+//As a last resource, send 404
+app.use((req: Request, res: Response, next) =>{
+    let html: string = parse_template("404.html", {}).unwrap_or("404 - Not found");
+    res.send(html);
+    next();
 });
 
 console.log("Initialized!");
