@@ -12,7 +12,7 @@ To install this application with the default process, you must have installed
 `docker` and `docker-compose` on your system.
 
 ## Installation
-If you already have a versión running, execute this command:
+If you already have a version running, execute this command:
 ```
 docker-compose build
 ```
