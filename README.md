@@ -23,7 +23,7 @@ docker-compose start
 ```
 This will create the containers and then start them for you in the background.
 
-# Development
+### Development
 To build the application for development purposes, run:
 ```sh
 ./docker-build.sh
