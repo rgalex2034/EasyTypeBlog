@@ -1,47 +1,62 @@
 import handlebars from "handlebars";
 import express from "express";
-import {Request, Response} from "express";
+import {Request, Response, Application} from "express";
 import Result, {Ok, Err} from "./utils/result";
+import Controller from "./controllers/controller";
+import Index from "./controllers/index";
+import Template from "./utils/template";
+import Page404 from "./controllers/page404";
 
 //Load precompiled templates
 require("./templates/build.js");
 
-function parse_template(filename: string, context: object): Result<string, string>{
-    if(!handlebars.templates[filename]) return new Err("Template " + filename + " not found");
-    return new Ok(handlebars.templates[filename](context || this));
-}
-handlebars.registerHelper("parse", (filename, context) => {
-    let def: string = "";
+class Router{
 
-    let html_result: Result<string, string> = parse_template.call(this, filename, context);
-    if(html_result.is_err()){
-        let err: string = html_result.handle();
-        console.error(err);
-        def = parse_template.call(this, "404.html", context).unwrap_or("404 - Not found");
+    private bind_address: string;
+    private port: number;
+    private express: Application;
+
+    constructor(port: number, bind_address: string = "0.0.0.0"){
+        this.bind_address = bind_address;
+        this.port = port;
+        this.express = express();
+        this.init_handlebars();
     }
 
-    return html_result.unwrap_or(def);
-});
+    private init_handlebars(){
+        /**
+         * Register helper function to parse inner templates through templates
+         */
+        handlebars.registerHelper("parse", function(filename, context) {
+            let html_result: Result<string, string> = Template.parse(filename, context || this);
 
-let app = express();
+            if(html_result.is_err()){
+                let err: string = html_result.handle();
+                console.error(err);
+            }
 
-//Static paths content
-app.use("/styles", express.static("styles"));
+            return html_result.unwrap_or("");
+        });
+    }
 
-//Resources
-app.get("/", (req: Request, res: Response) => {
-    let html: string = parse_template("index.html", {appname: "EasyTypeBlog"}).expect("Unable to load index.");
-    res.send(html);
-});
+    public register_static(path: string, directory: string){
+        this.express.use(path, express.static(directory));
+    }
 
-//As a last resource, send 404
-app.use((req: Request, res: Response, next) =>{
-    let html: string = parse_template("404.html", {}).unwrap_or("404 - Not found");
-    res.status(404);
-    res.send(html);
-    next();
-});
+    public register_controller(name: string, controller: Controller){
+        this.express.get(`/${name}`, controller.get.bind(controller));
+        this.express.post(`/${name}/:id`, controller.post.bind(controller));
+        this.express.put(`/${name}/:id`, controller.put.bind(controller));
+    }
 
-console.log("Initialized!");
+    public run(){
+        this.express.listen(this.port, this.bind_address);
+    }
 
-app.listen(80);
+}
+
+let app: Router = new Router(80);
+app.register_static("/styles", "styles");
+app.register_controller("/", new Index());
+app.register_controller("*", new Page404());
+app.run();
