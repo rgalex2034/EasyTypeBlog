@@ -43,10 +43,10 @@ class Router{
         this.express.use(path, express.static(directory));
     }
 
-    public register_controller(name: string, controller: Controller){
-        this.express.get(`/${name}`, controller.get.bind(controller));
-        this.express.post(`/${name}/:id`, controller.post.bind(controller));
-        this.express.put(`/${name}/:id`, controller.put.bind(controller));
+    public register_controller(path: string, controller: Controller){
+        this.express.get(`${path}`, controller.get.bind(controller));
+        this.express.post(`${path}/:id`, controller.post.bind(controller));
+        this.express.put(`${path}/:id`, controller.put.bind(controller));
     }
 
     public run(){
