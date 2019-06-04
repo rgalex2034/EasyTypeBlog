@@ -1,5 +1,5 @@
-export FILE=docker-compose.dev.yml
-export COMPOSE_CMD="docker-compose -f $FILE"
+export FILES="-f docker-compose.yml -f docker-compose.dev.yml"
+export COMPOSE_CMD="docker-compose $FILES"
 $COMPOSE_CMD build
 $COMPOSE_CMD run --rm web npm install
 $COMPOSE_CMD run --rm web npm i @types/node
