@@ -9,7 +9,7 @@ export default class Index implements Controller{
         res.send(Template.parse("index.html").unwrap_or("Template not found"));
     }
 
-    post(req: Request, res: import("express").Response) {
+    post(req: Request, res: Response) {
         Page404.send404(res);
     }
 
