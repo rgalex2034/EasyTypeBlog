@@ -5,7 +5,7 @@ import Result, {Ok, Err} from "./utils/result";
 import Controller from "./controllers/controller";
 import Index from "./controllers/index";
 import Template from "./utils/template";
-import Page404 from "./controllers/page404";
+import ErrorPage from "./controllers/error_page";
 
 //Load precompiled templates
 require("./templates/build.js");
@@ -58,5 +58,5 @@ class Router{
 let app: Router = new Router(80);
 app.register_static("/styles", "styles");
 app.register_controller("/", new Index());
-app.register_controller("*", new Page404());
+app.register_controller("*", new ErrorPage(404, "Not found"));
 app.run();

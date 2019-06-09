@@ -1,6 +1,6 @@
 import Controller from "./controller";
 import {Request, Response, Application} from "express";
-import Page404 from "./page404";
+import ErrorPage from "./error_page";
 import Template from "../utils/template";
 
 export default class Index implements Controller{
@@ -10,11 +10,11 @@ export default class Index implements Controller{
     }
 
     post(req: Request, res: Response) {
-        Page404.send404(res);
+        ErrorPage.send404(res);
     }
 
     put(req: Request, res: Response) {
-        Page404.send404(res);
+        ErrorPage.send404(res);
     }
 
 }
