@@ -3,8 +3,8 @@ abstract class Result<T, E>{
     protected error: E;
 
     abstract unwrap_or(def: T): T;
-    abstract expect(error: string): T;
-    abstract handle(): E;
+    abstract expect(error: string): T | never;
+    abstract handle(): E | never;
     abstract is_err(): boolean;
     abstract is_ok(): boolean;
 }
@@ -20,13 +20,12 @@ class Ok<T> extends Result<T, any>{
         return this.value;
     }
 
-    expect(error) {
+    expect(error): T {
         return this.value;
     }
 
-    handle(){
+    handle(): never{
         throw new Error("Can't handle an Ok value!");
-        return this.error;
     }
 
     is_err() {
@@ -49,13 +48,12 @@ class Err<T, E> extends Result<T, E>{
         return def;
     }
 
-    expect(error) {
+    expect(error): never {
         console.error(this.error);
         throw new Error(error);
-        return this.value;
     }
 
-    handle(){
+    handle(): E {
         return this.error;
     }
 
