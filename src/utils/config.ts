@@ -9,7 +9,7 @@ class Config{
 
     static getConfig(): Config {
         if(Config.instace) return Config.instace;
-        return Config.instace = new Config("/etc/easyblog.conf.json", "easyblog.conf.json");
+        return Config.instace = new Config("/etc/easyblog.conf.json", "~/.conf/easyblog.conf.json", "easyblog.conf.json");
     }
 
     constructor(...files: string[]){
