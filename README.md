@@ -48,7 +48,7 @@ The files are loaded in this orders, overriding options for every previous file.
 Meaning the the project folder file will override every other one,
 up to `/etc` system wide location.
 
-### Conf. options
+### Configuration option list
 #### Server Options
 - `server.bind_address`: The adress that the application will be listening for connections.
 - `server.port`: The port that the application will be listenting for connections.
