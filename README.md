@@ -7,7 +7,7 @@ and handlebars for the template system.
 
 For now, I've not decided which kind of technology use for persistence, but will be something small as SQLite or MongoDB.
 
-##Requirements
+## Requirements
 To install this application with the default process, you must have installed
 `docker` and `docker-compose` on your system.
 
