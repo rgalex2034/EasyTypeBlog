@@ -39,7 +39,7 @@ We use a file called `easyblog.conf.json` for configuration purposes.
 It can be located on three different places:
 ```
 /etc/easyblog.conf.json #System wide
-~/easyblog.conf.json #Per user 
+~/.config/easyblog.conf.json #Per user
 ./easyblog.conf.json #Local for application
 ```
 The last one is the root project folder.
