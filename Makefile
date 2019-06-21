@@ -9,8 +9,11 @@ build-styles: mkdir-build
 
 build-front: build-templates build-styles
 
-build: build-front
-	npx tsc --esModuleInterop --outDir build src/app.ts
+build-conf: mkdir-build
+	cp -ru easyblog.conf.json build/
+
+build: build-front build-conf
+	npx tsc --esModuleInterop --strictNullChecks --outDir build src/app.ts
 
 start:
 	node run start

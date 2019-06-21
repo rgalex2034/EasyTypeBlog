@@ -1,10 +1,11 @@
 import handlebars from "handlebars";
 import express from "express";
-import {Request, Response, Application} from "express";
-import Result, {Ok, Err} from "./utils/result";
+import {Application} from "express";
+import Result from "./utils/result";
 import Controller from "./controllers/controller";
 import Index from "./controllers/index";
 import Template from "./utils/template";
+import Config from "./utils/config";
 import ErrorPage from "./controllers/error_page";
 
 //Load precompiled templates
@@ -55,7 +56,12 @@ class Router{
 
 }
 
-let app: Router = new Router(80);
+let conf: Config = Config.getConfig();
+
+let bind_address: string = conf.getValue("127.0.0.1", "server", "bind_address");
+let port: number = conf.getValue(80, "server", "port");
+
+let app: Router = new Router(port, bind_address);
 app.register_static("/styles", "styles");
 app.register_controller("/", new Index());
 app.register_controller("*", new ErrorPage(404, "Not found"));
