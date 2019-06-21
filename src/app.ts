@@ -17,7 +17,7 @@ class Router{
     private port: number;
     private express: Application;
 
-    constructor(port: number, bind_address: string = "0.0.0.0"){
+    constructor(port: number, bind_address: string){
         this.bind_address = bind_address;
         this.port = port;
         this.express = express();
