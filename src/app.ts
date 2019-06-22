@@ -47,7 +47,7 @@ class Router{
     public register_controller(path: string, controller: Controller){
         if(!path.endsWith("/")) path += "/";
         this.express.get(`${path}`, controller.get.bind(controller));
-        this.express.post(`${path}:id`, controller.post.bind(controller));
+        this.express.post(`${path}`, controller.post.bind(controller));
         this.express.put(`${path}:id`, controller.put.bind(controller));
     }
 
