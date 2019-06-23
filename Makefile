@@ -2,10 +2,10 @@ mkdir-build:
 	mkdir -p build/templates
 
 build-templates: mkdir-build
-	npx handlebars templates/* -f build/templates/build.js -c handlebars
+	npx handlebars resources/templates/* -f build/templates/build.js -c handlebars
 
 build-styles: mkdir-build
-	cp -ru styles/ build/
+	cp -ru resources/styles/ build/
 
 build-front: build-templates build-styles
 

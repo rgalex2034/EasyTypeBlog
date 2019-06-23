@@ -63,7 +63,7 @@ let bind_address: string = conf.getValue("127.0.0.1", "server", "bind_address");
 let port: number = conf.getValue(80, "server", "port");
 
 let app: Router = new Router(port, bind_address);
-app.register_static("/styles", "styles");
+app.register_static("/styles", __dirname+"/styles");
 app.register_controller("/", new Index());
 app.register_controller("*", new ErrorPage(404, "Not found"));
 app.run();
