@@ -7,6 +7,7 @@ import Index from "./controllers/index";
 import Template from "./utils/template";
 import Config from "./utils/config";
 import ErrorPage from "./controllers/error_page";
+import About from "./controllers/about";
 
 //Load precompiled templates
 require("./templates/build.js");
@@ -65,5 +66,6 @@ let port: number = conf.getValue(80, "server", "port");
 let app: Router = new Router(port, bind_address);
 app.register_static("/styles", __dirname+"/styles");
 app.register_controller("/", new Index());
+app.register_controller("/about", new About());
 app.register_controller("*", new ErrorPage(404, "Not found"));
 app.run();
